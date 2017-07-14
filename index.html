@@ -157,7 +157,6 @@
     
     document.querySelectorAll('webview').forEach((wv) => {
       wv.addEventListener('page-title-updated', function(event) {
-        console.log(this);
         titleUpdated(this, event);
       });
     });
