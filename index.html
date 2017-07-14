@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Google Accounts</title>
+    <style type="text/css">
+      * {
+        box-sizing: border-box;
+      }
+      html, body{
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body{
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      webview{
+        width: 100%;
+        height: 100%;
+      }
+      webview.hide {
+        flex: 0 1;
+        width: 0px;
+        height: 0px;
+      }
+      #wrapper{
+        display: flex;
+        height: 100%;
+      }
+      #options{
+        display: flex;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        width: 60px;
+        padding: 10px;
+        background: #333;
+      }
+      #options ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      #options li{
+        display: block;
+        margin: 0 0 10px;
+        padding: 0;
+      }
+      #options li a{
+        display: block;
+        padding: 10px;
+        text-align: center;
+        font-size: 16px;
+        color: #999;
+        background: #FFF;
+        border: 1px solid #999;
+        border-radius: 4px;
+        text-decoration: none;
+      }
+      #options li a.active{
+        background: #999;
+        color: #FFF;
+      }
+      #webviews{
+        display: flex;
+        position: relative;
+        width: calc(100% - 60px);
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="options">
+        <ul>
+          <li><a class="wv-nav active" href="#personal" onClick="showWebview(this)">P</a></li>
+          <li><a class="wv-nav" href="#work" onClick="showWebview(this)">W</a></li>
+        </ul>
+      </div>
+      <div id="webviews">
+        <webview id="personal" src="https://gmail.com" partition="persist:personal"></webview>
+        <webview id="work" class="hide" src="https://gmail.com" partition="persist:work"></webview>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+    
+    function showWebview(el){
+      document.querySelectorAll('webview').forEach((wv) => {
+        wv.classList.add('hide');
+      });
+      
+      document.getElementById(el.href.split('#').pop()).classList.remove('hide');
+      
+      console.log(document.getElementsByClassName('wv-nav'));
+      
+      document.querySelectorAll('.wv-nav').forEach((wn) => {
+        wn.classList.remove('active');
+      });
+      
+      el.classList.add('active');
+      
+      return false;
+    }
+  </script>
+</html>
