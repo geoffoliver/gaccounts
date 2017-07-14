@@ -55,15 +55,15 @@
         padding: 10px;
         text-align: center;
         font-size: 16px;
-        color: #999;
-        background: #FFF;
+        color: #FFF;
+        background: #999;
         border: 1px solid #999;
         border-radius: 4px;
         text-decoration: none;
       }
       #options li a.active{
-        background: #999;
-        color: #FFF;
+        background: #FFF;
+        color: #999;
       }
       #webviews{
         display: flex;
@@ -98,8 +98,6 @@
       });
       
       document.getElementById(el.href.split('#').pop()).classList.remove('hide');
-      
-      console.log(document.getElementsByClassName('wv-nav'));
       
       document.querySelectorAll('.wv-nav').forEach((wn) => {
         wn.classList.remove('active');
