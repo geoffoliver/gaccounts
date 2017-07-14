@@ -1,6 +1,6 @@
 # gaccounts
 
-**Clone and run for a quick way to jump between two google accounts**
+**A quick way to jump between two google accounts built with [electron](http://electron.atom.io).**
 
 ## To Use
 
