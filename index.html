@@ -60,6 +60,7 @@
         border: 1px solid #999;
         border-radius: 4px;
         text-decoration: none;
+        position: relative;
       }
       #options li a.active{
         background: #FFF;
@@ -71,14 +72,40 @@
         width: calc(100% - 57px);
         height: 100%;
       }
+      #options .count{
+        position: absolute;
+        right: -3px;
+        top: -3px;
+        border-radius: 14px;
+        display: block;
+        background: red;
+        color: #FFF;
+        padding: 2px 5px;
+        font-size: 8px;
+        text-align: right;
+        font-weight: bold;
+      }
+      #options .count:empty{
+        display: none;
+      }
     </style>
   </head>
   <body>
     <div id="wrapper">
       <div id="options">
         <ul>
-          <li><a class="wv-nav active" href="#personal" onClick="showWebview(this)">P</a></li>
-          <li><a class="wv-nav" href="#work" onClick="showWebview(this)">W</a></li>
+          <li>
+              <a class="wv-nav active" href="#personal" onClick="showWebview(this)">
+                <span>P</span>
+                <span id="personal-count" class="count"></span>
+              </a>
+            </li>
+          <li>
+            <a class="wv-nav" href="#work" onClick="showWebview(this)">
+              <span>W</span>
+              <span id="work-count" class="count"></span>
+            </a>
+          </li>
         </ul>
       </div>
       <div id="webviews">
@@ -107,5 +134,32 @@
       
       return false;
     }
+    
+    function titleUpdated(wv, event){
+      var total = 0,
+        el = document.getElementById(wv.id + '-count'),
+        titleMatch = event.title.match(/Inbox \(([\d]+)\)/);
+      
+        if (event.title.slice(0, 5) !== 'Inbox') {
+          return;
+        }
+      
+        if (titleMatch) {
+          total = parseInt(titleMatch[1], 10);
+        }
+        
+        if (total > 0){
+          el.innerHTML = total;
+        } else {
+          el.innerHTML = '';
+        }
+    }
+    
+    document.querySelectorAll('webview').forEach((wv) => {
+      wv.addEventListener('page-title-updated', function(event) {
+        console.log(this);
+        titleUpdated(this, event);
+      });
+    });
   </script>
 </html>
