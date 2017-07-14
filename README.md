@@ -2,7 +2,7 @@
 
 **A quick way to jump between two google accounts built with [electron](http://electron.atom.io).**
 
-[screenshot](screenshot.png)
+![screenshot](screenshot.png)
 
 ## To Use
 
